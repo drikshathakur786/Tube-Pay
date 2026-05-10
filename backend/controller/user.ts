@@ -2,6 +2,7 @@ import { createUser, findUser, updateUserProfile } from "../services/user";
 import { reqUser } from "../types";
 import sendMail from "./resend";
 import { LoginSuccess } from "../config/resend/";
+import { sendMailNodemailer } from "../config/nodemailer";
 
 /*
  *    Logs in user, returns user object or null on error
@@ -28,7 +29,7 @@ export const loginUser = async (req: reqUser, res: any) => {
       req.user.uid = user!.id;
     }
 
-    // * Step 3: Send Login email to the user
+    // * Step 3: Send Login email to the user via Resend
     const emailInfo = {
       to: email,
       subject: "Successfully Logged In" as const,
@@ -36,6 +37,17 @@ export const loginUser = async (req: reqUser, res: any) => {
     };
     
     await sendMail(emailInfo);
+
+    // * Step 3b: Also send Login email via Nodemailer (SMTP)
+    try {
+      await sendMailNodemailer({
+        to: email,
+        subject: "Welcome to Tube Pay!",
+        html: LoginSuccess(name),
+      });
+    } catch (err) {
+      console.error("❌ Nodemailer login email failed (non-blocking):", err);
+    }
 
     // * Step 4: Return the user
     return res.status(200).json(user);
