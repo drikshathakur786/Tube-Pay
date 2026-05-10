@@ -16,6 +16,7 @@ import { RedisService } from "../services/redis";
 import sendMail from "./resend";
 import { io } from "../index";
 import { PaymentSent, PaymentReceived } from "../config/resend/";
+import { pushSuperchat } from "../services/firebase";
 
 /*
  *    Creates an order with rate limiting
@@ -111,6 +112,18 @@ export const verifyOrderHandler = async (req: reqUser, res: any) => {
     });
     } catch(error) {
       console.error(`Error sending websocket signal ${error}`)
+    }
+
+    // * PUSH SUPERCHAT TO FIREBASE REALTIME DATABASE
+    try {
+      await pushSuperchat(payment.streamId, {
+        username: payment.user.name,
+        amount: payment.amount,
+        message: payment.message,
+        timestamp: Date.now(),
+      });
+    } catch (error) {
+      console.error("❌ Error pushing superchat to Firebase:", error);
     }
 
     console.log(

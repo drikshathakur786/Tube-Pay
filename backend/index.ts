@@ -11,6 +11,7 @@ import { reqUser } from "./types";
 import cors from "cors";
 import os from "os";
 import paymentRoutes from "./routes/payment";
+import firebaseRoutes from "./routes/firebaseRoutes";
 import { createServer } from "http";
 import { Server as SocketIOServer } from "socket.io";
 
@@ -64,6 +65,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/streams', streamRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/superchats', firebaseRoutes);
 
 app.get('/test', authenticate, (req: reqUser, res: any) => {
     console.log("Protected route was accessed");
