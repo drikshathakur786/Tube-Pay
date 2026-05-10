@@ -2,7 +2,7 @@
 
 A full-stack platform for live streamers to receive real-time donations (superchats) from their viewers — built as a team project for the **Full Stack Engineering** course.
 
-🌐 **Live Demo**: [https://tube-pay.w16manik.ninja](https://tube-pay.w16manik.ninja)
+🌐 **Live Demo**: [https://tube-pay.w16manik.ninja](https://tube-pay-beta.vercel.app)
 
 ---
 
