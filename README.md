@@ -4,8 +4,6 @@ A full-stack platform for live streamers to receive real-time donations (superch
 
 🌐 **Live Demo**: [https://tube-pay.w16manik.ninja](https://tube-pay.w16manik.ninja)
 
-![CI](https://github.com/drikshathakur786/Tube-Pay/actions/workflows/ci.yml/badge.svg)
-
 ---
 
 ## What it does
